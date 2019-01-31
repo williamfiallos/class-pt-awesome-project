@@ -48,6 +48,17 @@ router.get('/', (req, res, next) => {
 })
 
 
+// delete the book route: <form action="/books/{{book._id}}" method="post">
+router.post('/:theBookId', (req, res, next) => {
+  Book.findByIdAndRemove(req.params.theBookId)
+  .then(theBook => {
+    // console.log("Deleted book is: ", theBook)
+    res.redirect('/books');
+  })
+  .catch(err => console.log("Error while deleting the book: ", err))
+})
+
+
 // get the details of a book from the DB
 // http://localhost:3000/books/5c524f86e730e03a70bb286a
 // router.get('/books/:bookId') => /books is prefilled and bookId is just a placeholder, can be any word
